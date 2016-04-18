@@ -1,0 +1,3 @@
+
+# cat=plugin.tx_pitstagcloud_tagcloud; type=string; label = Specify the tables and fields required for tagging: Syntax:-  tablename: field1,field2 | tablename2: field1,field2.. | tablename3: ...  If this field is set blank, no tables will be listed. 
+tableList = 

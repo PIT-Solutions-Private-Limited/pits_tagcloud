@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-03-14T12:27:17Z" product-name="pits_tagcloud">
+		<header/>
+		<body>
+			<trans-unit id="link.description">
+				<source>tag name</source>
+			</trans-unit>
+			<trans-unit id="linkurl.description">
+				<source>url</source>
+			</trans-unit>
+			<trans-unit id="linksize.description">
+				<source>linksize</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
