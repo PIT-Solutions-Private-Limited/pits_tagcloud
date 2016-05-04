@@ -1,5 +1,5 @@
 <?php
-namespace MinuThomas\PitsTagcloud\Domain\Repository;
+namespace Pits\PitsTagcloud\Domain\Repository;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /***************************************************************
@@ -76,7 +76,7 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         return $resultArray;
         
     }
-    
+            
     
     function findTagsFromTable($settings, $storagePid)
     {

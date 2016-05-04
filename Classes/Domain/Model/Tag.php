@@ -1,5 +1,5 @@
 <?php
-namespace MinuThomas\PitsTagcloud\Domain\Model;
+namespace Pits\PitsTagcloud\Domain\Model;
 
 
 /***************************************************************

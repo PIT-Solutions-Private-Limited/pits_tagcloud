@@ -1,5 +1,5 @@
 <?php
-namespace MinuThomas\PitsTagcloud\Controller;
+namespace Pits\PitsTagcloud\Controller;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 /***************************************************************
  *
@@ -33,7 +33,7 @@ class TagController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * tagRepository
      *
-     * @var \MinuThomas\PitsTagcloud\Domain\Repository\TagRepository
+     * @var \Pits\PitsTagcloud\Domain\Repository\TagRepository
      * @inject
      */
     protected $tagRepository = NULL;
@@ -57,7 +57,7 @@ class TagController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action show
      *
-     * @param \MinuThomas\PitsTagcloud\Domain\Model\Tag $tag
+     * @param \Pits\PitsTagcloud\Domain\Model\Tag $tag
      * @return void
      */
     public function showAction()

@@ -4,7 +4,7 @@ if (!defined('TYPO3_MODE')) {
 }
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'MinuThomas.' . $_EXTKEY,
+	'Pits.' . $_EXTKEY,
 	'Tagcloud',
 	array(
 		'Tag' => 'list, show',

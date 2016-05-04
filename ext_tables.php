@@ -4,7 +4,7 @@ if (!defined('TYPO3_MODE')) {
 }
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-	'MinuThomas.' . $_EXTKEY,
+	'Pits.' . $_EXTKEY,
 	'Tagcloud',
 	'Pits Tag cloud Extbase'
 );
