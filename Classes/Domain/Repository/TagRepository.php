@@ -32,7 +32,6 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  */
 class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-
     public $resultArray = [];
     public $styleArray = [];
     public $limit;
@@ -44,39 +43,47 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         //The tags selected from the list in flexform
         if (isset($settings['selectedTags']) && $settings['selectedTags'] != '')
         $tagIds = $settings['selectedTags'];
-        
+        $tagIds = explode(',', $tagIds);
+
         //To find the limit value
         if (isset($settings['numberTags']) && $settings['numberTags'] != '' && is_numeric($settings['numberTags']) && $settings['numberTags'] > 0) {
-            $limit = $settings['numberTags'];
+            $limit = intval($settings['numberTags']);
         } else {
             $limit = 100;
         }
+  
+        $storagePageIds = explode(',', $storagePid);
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setStoragePageIds($storagePageIds);
+
+        if(!empty($tagIds) && $tagIds[0]!='' ){
+            $query->matching(
+                $query->in('uid', $tagIds)
+            );
+        }
         
-        //Query to execute according to random option status
         if (isset($settings['checkboxRandomTags'])&& $settings['checkboxRandomTags'] != '' && is_numeric($settings['checkboxRandomTags']) && $settings['checkboxRandomTags'] > 0) {
-            if($tagIds!=''){
-            $sql = $GLOBALS['TYPO3_DB']->sql_query("select * from  tx_pitstagcloud_domain_model_tag where pid=" . $storagePid . " and deleted = '0' and hidden = '0' and uid IN (" . $tagIds . ") ORDER BY rand() limit " . $limit);
+            $result = $query->execute();
+            $resultCount=count($result);
+            $limit=($limit>$resultCount)?$resultCount:$limit;
+            $resultRandom= array_rand($result->toArray(), $limit);
+            if($resultCount>1){
+                foreach ($resultRandom as $key) {
+                    $resultArray[]=$result[$key];
+                }
             }
-            else{
-             $sql = $GLOBALS['TYPO3_DB']->sql_query("select * from  tx_pitstagcloud_domain_model_tag where pid=" . $storagePid . " and deleted = '0' and hidden = '0' ORDER BY rand() limit " . $limit);
+            else {
+                $resultArray[]=$result[$resultRandom];
             }
-        } else {
-            if($tagIds!=''){
-            $sql = $GLOBALS['TYPO3_DB']->sql_query("select * from  tx_pitstagcloud_domain_model_tag where pid=" . $storagePid . " and deleted = '0' and hidden = '0' and uid IN (" . $tagIds . ") limit " . $limit);
-            }
-            else{
-            $sql = $GLOBALS['TYPO3_DB']->sql_query("select * from  tx_pitstagcloud_domain_model_tag where pid=" . $storagePid . " and deleted = '0' and hidden = '0' limit " . $limit);   
-            }   
+            return $resultArray;
         }
-        
-        while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($sql)) {
-            $resultArray[] = $row;
+        else {
+            $query->setLimit($limit);
+            return $query->execute();
         }
-        
-        return $resultArray;
-        
+      
     }
-            
+    
     
     function findTagsFromTable($settings, $storagePid)
     {
@@ -102,12 +109,12 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $fields = explode(',', $settings['referenceFields']);
 
         //To get the max word limit for a tag
-        if (isset($settings['numberWords']) && ($settings['numberWords'] > 0) && ($settings['numberWords'] != ''))
+        if (isset($settings['numberWords']) && ($settings['numberWords'] > 0) && ($settings['numberWords'] != '')){
             $words = $settings['numberWords'] + 1;
+        }
         
         //Query to be executed according to the random option status
         if (isset($settings['checkboxRandomTags'])&& ($settings['checkboxRandomTags'] > 0) && ($settings['checkboxRandomTags'] != '')) {        
-       
             //To check each field one by one with the count of occurances as weight
             foreach ($fields as $fieldname) {
                 if(($fieldname!='')||($fieldname!=0)){
@@ -132,10 +139,12 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             }
         }
       
-        if (isset($settings['targetPage']) && $settings['targetPage']!=' ')
+        if (isset($settings['targetPage']) && $settings['targetPage']!=' '){
             $resultArray['target'] = $settings['targetPage'];
-        else
+        }
+        else{
             $resultArray['target'] = '';
+        }
 
         return $resultArray;
     }
@@ -146,17 +155,17 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         //To fetch the values and store to array
         while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($sql)) {
             if (($row['field'] != '0') && ($row['field'] != '')) {
-               if (($this->link['parameter']=='pid')||($table=='pages')) { 
-                $llink='';
-                $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('doktype', 'pages', 'uid='.intval($row['link']));
-                while ($r = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {         
-                    $llink=$r['doktype'];
-                }
+                if (($this->link['parameter']=='pid')||($table=='pages')) { 
+                    $llink='';
+                    $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('doktype', 'pages', 'uid='.intval($row['link']));
+                    while ($r = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {         
+                        $llink=$r['doktype'];
+                    }
 
-                $result['taglink'] = ($llink!="1")?intval($GLOBALS['TSFE']->id):$result['taglink'] = $row['link'];
+                    $result['taglink'] = ($llink!="1")?intval($GLOBALS['TSFE']->id):$row['link'];
                 }
                 else{
-                     $result['taglink'] = $row['link'];
+                    $result['taglink'] = $row['link'];
                 }
                      
                 //To calculate pixel size                
@@ -175,7 +184,7 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
                     $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($this->link['attributeValue'], $table, 'uid='.intval($row['uid']));
                     while ($r = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {         
-                    $attributeVal=$r[$this->link['attributeValue']];
+                        $attributeVal=$r[$this->link['attributeValue']];
                     }
 
                     $result['additionalParams'] = array(
@@ -183,10 +192,10 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 }
                 $result['uid'] = $row['uid'];
                 
-                $result2[] = $result;
+                $resultFinal[] = $result;
             }
         }
-        return $result2;
+        return $resultFinal;
     }
     
     
