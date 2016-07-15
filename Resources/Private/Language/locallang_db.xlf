@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2016-04-06T11:03:53Z" product-name="pits_tagcloud">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-05-31T14:19:25Z" product-name="pits_tagcloud">
 		<header/>
 		<body>
 			<trans-unit id="tx_pitstagcloud_domain_model_tag">
@@ -15,6 +15,21 @@
 			<trans-unit id="tx_pitstagcloud_domain_model_tag.linksize">
 				<source>Linksize</source>
 			</trans-unit>
+			<trans-unit id="tx_pitstagcloud_domain_model_imagetag">
+				<source>Image Tag</source>
+			</trans-unit>
+			<trans-unit id="tx_pitstagcloud_domain_model_imagetag.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_pitstagcloud_domain_model_imagetag.width">
+				<source>Width</source>
+			</trans-unit>
+			<trans-unit id="tx_pitstagcloud_domain_model_imagetag.height">
+				<source>Height</source>
+			</trans-unit>
+			<trans-unit id="tx_pitstagcloud_domain_model_imagetag.link_url">
+				<source>Link Url</source>
+			</trans-unit>
 			<trans-unit id="tx_pitstagcloud_domain_model_tag.numberTags">
 				<source>Insert the maximum number of Tags (leave empty/0 for no limit)</source>
 			</trans-unit>
@@ -22,7 +37,7 @@
 				<source>Get random tags, if number of tags are limited.</source>
 			</trans-unit>
 			<trans-unit id="tx_pitstagcloud_domain_model_tag.bg-color_input">
-				<source>Insert the background-color of the tags (e. g. ffffff, without sharp).</source>
+				<source>Insert the background-color of the tags (e. g. #ffffff).</source>
 			</trans-unit>
 			<trans-unit id="tx_pitstagcloud_domain_model_tag.pid_input">
 				<source>Select the System Folder where default tags are placed.</source>
@@ -37,19 +52,19 @@
 				<source>Activate the checkbox to make background transparent (background-color will be ignored then)</source>
 			</trans-unit>
 			<trans-unit id="tx_pitstagcloud_domain_model_tag.text-color_input">
-				<source>Insert the text-color of the tags (e. g. 000000, without sharp)</source>
+				<source>Insert the text-color of the tags (e. g. #000000)</source>
 			</trans-unit>
 			<trans-unit id="tx_pitstagcloud_domain_model_tag.outline-color_input">
-				<source>Insert the outline color of the tags (e. g. 000000, without sharp)</source>
+				<source>Insert the outline color of the tags (e. g. #000000)</source>
 			</trans-unit>
 			<trans-unit id="tx_pitstagcloud_domain_model_tag.hi-color_input">
-				<source>Insert the hi-color of the tags (e. g. 000000, without sharp)</source>
+				<source>Insert the hi-color of the tags (e. g. #000000)</source>
 			</trans-unit>
 			<trans-unit id="tx_pitstagcloud_domain_model_tag.rotation-speed_input">
 				<source>Insert the rotation speed here (0.05 is moderate speed)</source>
 			</trans-unit>
 			<trans-unit id="tx_pitstagcloud_domain_model_tag.selectedTags">
-				<source>Pick the tags to be displayed</source>
+				<source>Pick the tags to be displayed (By default all tags will be dispalyed)</source>
 			</trans-unit>
 			<trans-unit id="tx_pitstagcloud_domain_model_tag.inputTable">
 				<source>Select the table</source>

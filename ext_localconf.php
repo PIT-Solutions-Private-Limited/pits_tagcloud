@@ -8,11 +8,13 @@ if (!defined('TYPO3_MODE')) {
 	'Tagcloud',
 	array(
 		'Tag' => 'list, show',
+		'ImageTag' => 'list',
 		
 	),
 	// non-cacheable actions
 	array(
 		'Tag' => 'list, show',
+		'ImageTag' => 'list',
 		
 	)
 );

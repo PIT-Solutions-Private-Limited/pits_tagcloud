@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2016-04-06T11:03:53Z" product-name="pits_tagcloud">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-05-31T14:19:25Z" product-name="pits_tagcloud">
 		<header/>
 		<body>
 			<trans-unit id="tx_pitstagcloud_domain_model_tag">
@@ -14,6 +14,21 @@
 			</trans-unit>
 			<trans-unit id="tx_pitstagcloud_domain_model_tag.linksize">
 				<source>Linksize</source>
+			</trans-unit>
+			<trans-unit id="tx_pitstagcloud_domain_model_imagetag">
+				<source>Image Tag</source>
+			</trans-unit>
+			<trans-unit id="tx_pitstagcloud_domain_model_imagetag.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_pitstagcloud_domain_model_imagetag.width">
+				<source>Width</source>
+			</trans-unit>
+			<trans-unit id="tx_pitstagcloud_domain_model_imagetag.height">
+				<source>Height</source>
+			</trans-unit>
+			<trans-unit id="tx_pitstagcloud_domain_model_imagetag.link_url">
+				<source>Link Url</source>
 			</trans-unit>
 		</body>
 	</file>

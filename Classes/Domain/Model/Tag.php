@@ -1,7 +1,6 @@
 <?php
 namespace Pits\PitsTagcloud\Domain\Model;
 
-
 /***************************************************************
  *
  *  Copyright notice

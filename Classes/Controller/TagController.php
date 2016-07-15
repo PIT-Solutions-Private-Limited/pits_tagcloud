@@ -25,11 +25,13 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
 /**
  * TagController
  */
 class TagController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
+
     /**
      * tagRepository
      *
@@ -37,7 +39,7 @@ class TagController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @inject
      */
     protected $tagRepository = NULL;
-
+    
     /**
      * action list
      *
@@ -46,14 +48,14 @@ class TagController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function listAction()
     {
         $this->contentObj = $this->configurationManager->getContentObject();
-        $storagePid       = $this->contentObj->data['pages'];
-        $settings         = $this->settings;
-        $tags             = $this->tagRepository->findTags($settings, $storagePid);
+        $storagePid = $this->contentObj->data['pages'];
+        $settings = $this->settings;
+        $tags = $this->tagRepository->findTags($settings, $storagePid);
         $this->view->assign('tags', $tags);
         $style = $this->tagRepository->getStyle($settings);
         $this->view->assign('styles', $style);
     }
-
+    
     /**
      * action show
      *
@@ -63,20 +65,19 @@ class TagController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function showAction()
     {
         $this->contentObj = $this->configurationManager->getContentObject();
-        $storagePid       = $this->contentObj->data['pages'];
-        $settings         = $this->settings;
-      
-        $tags             = $this->tagRepository->findTagsFromTable($settings, $storagePid);
-        $excludeIds       = $settings['tabletags'][$settings['referenceTable']];
-        $pid_arr          = explode(',', trim($excludeIds['excludeRecords']));
-        $i                = 0;
-        $numRows          = count($tags);
-        foreach($tags as $tag) {
-            if($i + 1 != $numRows) {
+        $storagePid = $this->contentObj->data['pages'];
+        $settings = $this->settings;
+        $tags = $this->tagRepository->findTagsFromTable($settings, $storagePid);
+        $excludeIds = $settings['tabletags'][$settings['referenceTable']];
+        $pid_arr = explode(',', trim($excludeIds['excludeRecords']));
+        $i = 0;
+        $numRows = count($tags);
+        foreach ($tags as $tag) {
+            if ($i + 1 != $numRows) {
                 $j = 0;
-                foreach($tag as $key) {
-                    $uid = isset($key["uid"]) ? $key["uid"] : NULL;
-                    if(in_array($uid, $pid_arr)) {
+                foreach ($tag as $key) {
+                    $uid = isset($key['uid']) ? $key['uid'] : NULL;
+                    if (in_array($uid, $pid_arr)) {
                         unset($tags[$i][$j]);
                     }
                     $j++;
@@ -88,4 +89,5 @@ class TagController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $style = $this->tagRepository->getStyle($settings);
         $this->view->assign('styles', $style);
     }
+
 }

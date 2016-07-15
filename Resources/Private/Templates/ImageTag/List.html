@@ -25,10 +25,14 @@ Otherwise your changes will be overwritten the next time you save the extension 
  
     <div id="tags" style="display: none;">
       <ul class="weighted" style="font-size: 50%" id="weightTags">
-       <f:for each="{tags}" as="tag">
-          <li><f:link.external uri="{tag.linkurl}" style="font-size:{tag.linksize}px" target="_blank"> {tag.link} </f:link.external>
+       <f:for each="{imageTags}" as="imageTag">
+          <li><f:link.external uri="{imageTag.link_url}" target="_blank"><img src="{imageTag.imagefile}" width="{imageTag.width}" height="{imageTag.height}">
+          </f:link.external>
           </li>
       </f:for>
       </ul>
     </div>
+
 </f:section>
+
+

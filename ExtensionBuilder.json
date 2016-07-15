@@ -3,8 +3,8 @@
         {
             "config": {
                 "position": [
-                    41,
-                    66
+                    40,
+                    65.454544252601
                 ]
             },
             "name": "New Model Object",
@@ -69,11 +69,91 @@
                     "relations": []
                 }
             }
+        },
+        {
+            "config": {
+                "position": [
+                    50,
+                    324.4545442526
+                ]
+            },
+            "name": "New Model Object",
+            "value": {
+                "actionGroup": {
+                    "_default0_list": true,
+                    "_default1_show": false,
+                    "_default2_new_create": false,
+                    "_default3_edit_update": false,
+                    "_default4_delete": false,
+                    "customActions": []
+                },
+                "name": "ImageTag",
+                "objectsettings": {
+                    "addDeletedField": true,
+                    "addHiddenField": true,
+                    "addStarttimeEndtimeFields": true,
+                    "aggregateRoot": true,
+                    "categorizable": false,
+                    "description": "",
+                    "mapToTable": "",
+                    "parentClass": "",
+                    "sorting": false,
+                    "type": "Entity",
+                    "uid": "700135182106"
+                },
+                "propertyGroup": {
+                    "properties": [
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "image",
+                            "propertyType": "Image",
+                            "uid": "257264154750"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "width",
+                            "propertyType": "Integer",
+                            "uid": "147066072161"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "height",
+                            "propertyType": "Integer",
+                            "uid": "689540209074"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "linkUrl",
+                            "propertyType": "String",
+                            "uid": "1344576222066"
+                        }
+                    ]
+                },
+                "relationGroup": {
+                    "relations": []
+                }
+            }
         }
     ],
     "properties": {
         "backendModules": [],
-        "description": "An extension to generate tagcloud",
+        "description": "An extension to generate tagcloud out of text links, image links or table data",
         "emConf": {
             "category": "plugin",
             "custom_category": "",
@@ -82,14 +162,14 @@
             "disableVersioning": false,
             "skipGenerateDocumentationTemplate": false,
             "sourceLanguage": "en",
-            "state": "alpha",
+            "state": "stable",
             "targetVersion": "7.6.0-7.6.99",
             "version": "1.0.1"
         },
         "extensionKey": "pits_tagcloud",
         "name": "Pits Tag Cloud",
-        "originalExtensionKey": "",
-        "originalVendorName": "",
+        "originalExtensionKey": "pits_tagcloud",
+        "originalVendorName": "Pits",
         "persons": [
             {
                 "company": "PIT Solutions Pvt. Ltd, India",
@@ -101,8 +181,8 @@
         "plugins": [
             {
                 "actions": {
-                    "controllerActionCombinations": "Tag => list, show",
-                    "noncacheableActions": "Tag => list, show",
+                    "controllerActionCombinations": "Tag => list, show\nImageTag =>list",
+                    "noncacheableActions": "Tag => list, show\nImageTag => list",
                     "switchableActions": ""
                 },
                 "key": "tagcloud",
@@ -113,7 +193,7 @@
     },
     "wires": [],
     "log": {
-        "last_modified": "2016-04-06 11:03",
+        "last_modified": "2016-05-31 02:19",
         "extension_builder_version": "7.6.0",
         "be_user": " (1)"
     }

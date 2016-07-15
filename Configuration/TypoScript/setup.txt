@@ -1,4 +1,3 @@
-
 plugin.tx_pitstagcloud_tagcloud {
 	view {
 		templateRootPaths.0 = {$plugin.tx_pitstagcloud_tagcloud.view.templateRootPath}
@@ -33,4 +32,3 @@ plugin.tx_pitstagcloud_tagcloud {
 
 
 page.includeJS.tx_pitstagcloud = EXT:pits_tagcloud/Resources/Public/js/tagcanvas.min.js
-

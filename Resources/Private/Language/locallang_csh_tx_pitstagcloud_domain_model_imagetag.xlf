@@ -3,14 +3,17 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2016-05-31T14:19:25Z" product-name="pits_tagcloud">
 		<header/>
 		<body>
-			<trans-unit id="link.description">
-				<source>link</source>
+			<trans-unit id="image.description">
+				<source>image</source>
 			</trans-unit>
-			<trans-unit id="linkurl.description">
-				<source>linkurl</source>
+			<trans-unit id="width.description">
+				<source>width</source>
 			</trans-unit>
-			<trans-unit id="linksize.description">
-				<source>linksize</source>
+			<trans-unit id="height.description">
+				<source>height</source>
+			</trans-unit>
+			<trans-unit id="link_url.description">
+				<source>linkUrl</source>
 			</trans-unit>
 		</body>
 	</file>

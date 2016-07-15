@@ -140,15 +140,8 @@ return array(
 			'config' => array(
 				'type' => 'input',
 				'size' => 4,
-				'max' => 3,
-				'default' => 10,
-				'eval' => 'int',
-				'placeholder' => 'Max 100px',
-				'range' => array(
-  					 'lower' => 10,
-   					 'upper' => 100
-		    	)
-		    ),
+				'eval' => 'int'
+			)
 		),
 		
 	),
