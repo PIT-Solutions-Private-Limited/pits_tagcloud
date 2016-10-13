@@ -90,6 +90,9 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      */
     function findTagsFromTable($settings, $storagePid)
     {
+        $storagePageIds = explode(',', $storagePid);
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setStoragePageIds($storagePageIds);
         // To find the limit value
         if (isset($settings['numberTags']) && $settings['numberTags'] != '' && is_numeric($settings['numberTags']) && $settings['numberTags'] > 0) {
             $limit = $settings['numberTags'];
@@ -117,7 +120,8 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             //To check each field one by one with the count of occurances as weight
             foreach ($fields as $fieldname) {
                 if ($fieldname != '' || $fieldname != 0) {
-                    $sql = $GLOBALS['TYPO3_DB']->sql_query('select uid, count(' . $fieldname . ') as fieldCount, ' . $fieldname . ' as field, ' . $parameter . ' as link from  ' . $table . ' where deleted = \'0\' and hidden = \'0\' ' . $where . ' GROUP BY ' . $fieldname . ' ORDER BY rand()  limit ' . $limit);
+                    $query->statement('select uid, count(' . $fieldname . ') as fieldCount, ' . $fieldname . ' as field, ' . $parameter . ' as link from  ' . $table . ' where deleted = \'0\' and hidden = \'0\' ' . $where . ' GROUP BY ' . $fieldname . ' ORDER BY rand() limit ' . $limit);
+                    $sql =  $query->execute(1);
                     $res = $this->getValues($sql, $words, $settings['referenceTable']);
                     if (isset($res)) {
                         $resultArray[] = $res;
@@ -128,7 +132,8 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             //To check each field one by one with the count of occurances as weight
             foreach ($fields as $fieldname) {
                 if ($fieldname != '' || $fieldname != 0) {
-                    $sql = $GLOBALS['TYPO3_DB']->sql_query('select uid, count(' . $fieldname . ') as fieldCount, ' . $fieldname . '  as field , ' . $parameter . ' as link from  ' . $table . ' where deleted = \'0\' and hidden = \'0\' ' . $where . ' GROUP BY ' . $fieldname . ' limit ' . $limit);
+                    $query->statement('select uid, count(' . $fieldname . ') as fieldCount, ' . $fieldname . '  as field , ' . $parameter . ' as link from  ' . $table . ' where deleted = \'0\' and hidden = \'0\' ' . $where . ' GROUP BY ' . $fieldname . ' limit ' . $limit);
+                    $sql =  $query->execute(1);
                     $res = $this->getValues($sql, $words, $settings['referenceTable']);
                     if (isset($res)) {
                         $resultArray[] = $res;
@@ -150,14 +155,16 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param $table
      */
     function getValues($sql, $words, $table)
-    {
+    {   
+        $query = $this->createQuery();
         //To fetch the values and store to array
-        while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($sql)) {
+        foreach ($sql as $row) {
             if ($row['field'] != '0' && $row['field'] != '') {
                 if ($this->link['parameter'] == 'pid' || $table == 'pages') {
                     $llink = '';
-                    $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('doktype', 'pages', 'uid=' . intval($row['link']));
-                    while ($r = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+                    $query->statement('select doktype from pages where uid='.intval($row['link']));
+                    $res = $query->execute(1);
+                    foreach ($res as $r) {
                         $llink = $r['doktype'];
                     }
                     $result['taglink'] = $llink != '1' ? intval($GLOBALS['TSFE']->id) : $row['link'];
@@ -175,8 +182,9 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 }
                 //To check for additional parameters to be inserted to URL
                 if (isset($this->link['additionalParams'])) {
-                    $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($this->link['attributeValue'], $table, 'uid=' . intval($row['uid']));
-                    while ($r = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+                    $query->statement('select '.$this->link['attributeValue'].' from '.$table.' where uid = '. intval($row['uid']));
+                    $res = $query->execute(1);
+                    foreach ($res as $r) {
                         $attributeVal = $r[$this->link['attributeValue']];
                     }
                     $result['additionalParams'] = array(
