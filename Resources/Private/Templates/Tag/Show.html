@@ -18,14 +18,14 @@ Otherwise your changes will be overwritten the next time you save the extension 
     <script type="text/javascript">{styles.script}
  </script>
  </f:format.raw>
-    <div id="myCanvasContainer">
-        <canvas width="{styles.canvasWidth}" height="{styles.canvasHeight}" style="background-color:{styles.canvasbg};" id="myCanvas">
+    <div id="{styles.container_ID}">
+        <canvas width="{styles.canvasWidth}" height="{styles.canvasHeight}" style="background-color:{styles.canvasbg};" id="{styles.element_ID}">
             <p>Anything in here will be replaced on browsers that support the canvas element</p>
         </canvas>
     </div>
 
-    <div id="tags" style="display: none;">
-        <ul class="weighted" style="font-size: 50%" id="weightTags">
+    <div id="{styles.tag_ID}" style="display: none;">
+        <ul class="weighted" style="font-size: 50%" id="textTags">
             <f:for each="{tags}" as="tag" iteration="t2">
                <f:if condition="{t2}!={t2.isLast}">
                     <f:for each="{tag}" as="tagD" iteration="t1">
