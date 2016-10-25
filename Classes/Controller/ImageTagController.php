@@ -48,6 +48,7 @@ class ImageTagController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     public function listAction()
     {
         $this->contentObj = $this->configurationManager->getContentObject();
+        $contentId = $this->contentObj->data['uid'];
         $storagePid = $this->contentObj->data['pages'];
         $settings = $this->settings;
         $tags = $this->imageTagRepository->findImageTags($settings, $storagePid);
@@ -60,8 +61,9 @@ class ImageTagController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         }
        
         $this->view->assign('imageTags', $tags);
-        $style = $this->imageTagRepository->getStyle($settings);
+        $style = $this->imageTagRepository->getStyle($settings, $contentId);
         $this->view->assign('styles', $style);
+        $this->view->assign('content_ID',$contentId);
     }
     
 }

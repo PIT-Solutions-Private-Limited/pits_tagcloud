@@ -32,14 +32,11 @@ namespace Pits\PitsTagcloud\Domain\Repository;
 class ImageTagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
-
-
     public $resultArray = array();
     
     public $styleArray = array();
     
     public $limit = null;
-    
  
     /**
      * @param $settings
@@ -85,11 +82,15 @@ class ImageTagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         }
     }
     
-	/**
-     * @param $settings
-     */
-    function getStyle($settings)
+	 /**
+    * @param $settings
+    * @param $contentID
+    */
+    function getStyle($settings, $contentId)
     {
+        $element_ID = 'myCanvas_'.$contentId;
+        $tag_ID = 'tags_'.$contentId;
+        $container_ID = "myCanvasContainer_".$contentId;
         // All chosen style options and its values added to the script code
         $textColor = $settings['inputTextColor'] != '' ? $settings['inputTextColor'] : '#ff0000';
         $outlineColour = $settings['outlineColour'] != '' ? $settings['outlineColour'] : '#000000';
@@ -99,43 +100,52 @@ class ImageTagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $canvasHeight = $settings['inputHeight'] != '' ? $settings['inputHeight'] : '300';
         $canvasbg = $settings['canvasBg'] != '' ? $settings['canvasBg'] : '#ffffff';
         $Scriptcontent = '      
-   		window.onload = function() {
-      		try {
-        		TagCanvas.Start(\'myCanvas\',\'weightTags\',{
-          		textColour: \'' . $textColor . '\',
-         		outlineColour: \'' . $outlineColour . '\',
-          		reverse: true,
-          		depth: 0.8,
-          		maxSpeed: ' . $maxSpeed . ',
-          		bgColour: \'' . $bgColour . '\',
-          		weight: true,
-          		hideTags: true
-        	});
-      		} catch(e) {
-			// something went wrong, hide the canvas container
-       		document.getElementById(\'myCanvasContainer\').style.display = \'none\';
-      	}
-    	};';
+          document.addEventListener("DOMContentLoaded", function(event) { 
+            try {
+                TagCanvas.Start(\'' . $element_ID . '\',\'' . $tag_ID . '\',{
+                textColour: \'' . $textColor . '\',
+                  outlineColour: \'' . $outlineColour . '\',
+                reverse: true,
+                depth: 0.8,
+                maxSpeed: ' . $maxSpeed . ',
+                bgColour: \'' . $bgColour . '\',
+                weight: true,
+                hideTags: true,
+              shape: "sphere"
+            });
+         
+            } catch(e) {
+                // something went wrong, hide the canvas container
+            document.getElementById(\'' . $container_ID . '\').style.display = \'none\';
+
+        }
+        });';
+        $styleArray['element_ID'] = $element_ID;
+        $styleArray['tag_ID'] = $tag_ID;
+        $styleArray['container_ID'] = $container_ID;
         $styleArray['script'] = $Scriptcontent;
         $styleArray['canvasHeight'] = $canvasHeight;
         $styleArray['canvasWidth'] = $canvasWidth;
         $styleArray['canvasbg'] = $canvasbg;
         return $styleArray;
     }
-
     
     /**
      * @param $image uid
      * @param $tablename
      */
-    function getImageUidLocal($imgUid,$table){
-    	$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid_local', 'sys_file_reference', 'uid_foreign='.$imgUid.' AND tablenames = "'.$table.'" AND fieldname="image" AND deleted = 0 AND hidden = 0', '', '');
-    	if($res){
-       		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)){
-            	if($row['uid_local'])
-                	return $row['uid_local'];
-        	} 
-    	}
+    function getImageUidLocal($imgUid,$table)
+    {
+    	$query = $this->createQuery();
+        $query->statement('select uid_local from sys_file_reference where uid_foreign='.$imgUid.' AND tablenames = "'.$table.'" AND fieldname="image" AND deleted = 0 AND hidden = 0');
+        $res = $query->execute(1);
+        
+        if($res){
+            foreach ($res as $row){
+                if($row['uid_local'])
+                return $row['uid_local'];
+            }
+        }
   	}
 
     
@@ -143,14 +153,18 @@ class ImageTagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param $image uid_local
      *
      */
-    function getImagefile($uid){
-    	$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*,concat("fileadmin",sys_file.identifier) as file_name ', 'sys_file', 'uid='.$uid, '', '');
-    	if($res){
-        	while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)){
-            	if($row['file_name'])
-                	return $row['file_name']; 
-        	}
-    	}
+    function getImagefile($uid)
+    {
+    	$query = $this->createQuery();
+        $query->statement('select *, concat("fileadmin",sys_file.identifier) as file_name from sys_file where uid='.$uid);
+        $res = $query->execute(1);
+        
+        if($res){
+            foreach ($res as $row){
+                if($row['file_name'])
+                    return $row['file_name']; 
+            }
+        }
     }
 
 

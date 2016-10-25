@@ -48,11 +48,12 @@ class TagController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function listAction()
     {
         $this->contentObj = $this->configurationManager->getContentObject();
+        $contentId = $this->contentObj->data['uid'];
         $storagePid = $this->contentObj->data['pages'];
         $settings = $this->settings;
         $tags = $this->tagRepository->findTags($settings, $storagePid);
         $this->view->assign('tags', $tags);
-        $style = $this->tagRepository->getStyle($settings);
+        $style = $this->tagRepository->getStyle($settings, $contentId);
         $this->view->assign('styles', $style);
     }
     
@@ -65,6 +66,7 @@ class TagController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function showAction()
     {
         $this->contentObj = $this->configurationManager->getContentObject();
+        $contentId = $this->contentObj->data['uid'];
         $storagePid = $this->contentObj->data['pages'];
         $settings = $this->settings;
         $tags = $this->tagRepository->findTagsFromTable($settings, $storagePid);
@@ -86,7 +88,7 @@ class TagController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $i++;
         }
         $this->view->assign('tags', $tags);
-        $style = $this->tagRepository->getStyle($settings);
+        $style = $this->tagRepository->getStyle($settings, $contentId);
         $this->view->assign('styles', $style);
     }
 

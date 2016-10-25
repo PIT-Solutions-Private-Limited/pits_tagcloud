@@ -13,6 +13,8 @@ Tag cloud is an user friendly extension to generate tag clouds. The tags can be 
 
 The Tag cloud can be made colourful and attractive. The weight of manually added tags can be specified for each tag. Whereas the weight (font-size) for tags from tables is generated automatically according to its number of occurances in the respective tables.
 
+You can insert multiple tag clouds in a page.
+
 The extension uses tagCanvas for rendering animated tags.
 
 

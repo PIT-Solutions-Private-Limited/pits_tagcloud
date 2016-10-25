@@ -199,10 +199,14 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     }
     
     /**
-     * @param $settings
-     */
-    function getStyle($settings)
+    * @param $settings
+    * @param $contentID
+    */
+    function getStyle($settings, $contentId)
     {
+        $element_ID = 'myCanvas_'.$contentId;
+        $tag_ID = 'tags_'.$contentId;
+        $container_ID = "myCanvasContainer_".$contentId;
         // All chosen style options and its values added to the script code
         $textColor = $settings['inputTextColor'] != '' ? $settings['inputTextColor'] : '#ff0000';
         $outlineColour = $settings['outlineColour'] != '' ? $settings['outlineColour'] : '#000000';
@@ -212,23 +216,28 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $canvasHeight = $settings['inputHeight'] != '' ? $settings['inputHeight'] : '300';
         $canvasbg = $settings['canvasBg'] != '' ? $settings['canvasBg'] : '#ffffff';
         $Scriptcontent = '      
-    window.onload = function() {
-      try {
-        TagCanvas.Start(\'myCanvas\',\'weightTags\',{
-          textColour: \'' . $textColor . '\',
-          outlineColour: \'' . $outlineColour . '\',
-          reverse: true,
-          depth: 0.8,
-          maxSpeed: ' . $maxSpeed . ',
-          bgColour: \'' . $bgColour . '\',
-          weight: true,
-          hideTags: true
-        });
-      } catch(e) {
-// something went wrong, hide the canvas container
-        document.getElementById(\'myCanvasContainer\').style.display = \'none\';
-      }
-    };';
+        document.addEventListener("DOMContentLoaded", function(event) { 
+            try {
+            TagCanvas.Start(\'' . $element_ID . '\',\'' . $tag_ID . '\',{
+              textColour: \'' . $textColor . '\',
+              outlineColour: \'' . $outlineColour . '\',
+              reverse: true,
+              depth: 0.8,
+              maxSpeed: ' . $maxSpeed . ',
+              bgColour: \'' . $bgColour . '\',
+              weight: true,
+              hideTags: true,
+              shape: "sphere"
+            });
+           
+          } catch(e) {
+        // something went wrong, hide the canvas container
+            document.getElementById(\'' . $container_ID . '\').style.display = \'none\';
+          }
+        });';
+        $styleArray['element_ID'] = $element_ID;
+        $styleArray['tag_ID'] = $tag_ID;
+        $styleArray['container_ID'] = $container_ID;
         $styleArray['script'] = $Scriptcontent;
         $styleArray['canvasHeight'] = $canvasHeight;
         $styleArray['canvasWidth'] = $canvasWidth;
