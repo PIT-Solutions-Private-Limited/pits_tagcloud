@@ -9,23 +9,23 @@ plugin.tx_pitstagcloud_tagcloud {
 	}
 	settings {
 		tabletags{
-    		pages{
-      			links.parameter = uid
-      			excludeRecords = 
-                andWhere = doktype = 1
-    		}
-    		tt_news{
-      			links.parameter = {$plugin.tt_news.singlePid}
-      			links.additionalParams = tx_ttnews[tt_news]
-      			links.attributeValue = uid
-      			excludeRecords = 
-                andWhere =
-      		}
-    		tx_tagcloud_domain_model_tag{
-    		 	links.parameter = linkurl
-    		  	excludeRecords =
-                andWhere =
-    		}
+			pages{
+				links.parameter = uid
+				excludeRecords = 
+				andWhere = doktype = 1
+			}
+			tt_news{
+				links.parameter = {$plugin.tt_news.singlePid}
+				links.additionalParams = tx_ttnews[tt_news]
+				links.attributeValue = uid
+				excludeRecords = 
+				andWhere =
+			}
+			tx_tagcloud_domain_model_tag{
+				links.parameter = linkurl
+				excludeRecords =
+				andWhere =
+			}
   		}
 	}
 }
