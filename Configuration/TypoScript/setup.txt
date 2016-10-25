@@ -12,19 +12,19 @@ plugin.tx_pitstagcloud_tagcloud {
     		pages{
       			links.parameter = uid
       			excludeRecords = 
-            andWhere = doktype = 1
+                andWhere = doktype = 1
     		}
     		tt_news{
       			links.parameter = {$plugin.tt_news.singlePid}
       			links.additionalParams = tx_ttnews[tt_news]
       			links.attributeValue = uid
       			excludeRecords = 
-            andWhere =
+                andWhere =
       		}
     		tx_tagcloud_domain_model_tag{
-    		 	  links.parameter = linkurl
+    		 	links.parameter = linkurl
     		  	excludeRecords =
-            andWhere =
+                andWhere =
     		}
   		}
 	}

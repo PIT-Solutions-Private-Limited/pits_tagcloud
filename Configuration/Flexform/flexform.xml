@@ -30,7 +30,6 @@
                             </items>
                             <maxitems>1</maxitems>
                             <size>1</size>
-
                     </config>
                 </TCEforms>
             </switchableControllerActions>
@@ -63,7 +62,8 @@
                        </config>
                 </TCEforms>
             </settings.selectedTags>
-             <settings.selectedImageTags>
+
+            <settings.selectedImageTags>
                 <TCEforms>
                     <displayCond>FIELD:switchableControllerActions:=:ImageTag->list</displayCond>
                     <label>LLL:EXT:pits_tagcloud/Resources/Private/Language/locallang_db.xlf:tx_pitstagcloud_domain_model_tag.selectedTags</label>
@@ -77,8 +77,7 @@
                             <maxitems>100</maxitems>
                        </config>
                 </TCEforms>
-             </settings.selectedImageTags>
-           
+            </settings.selectedImageTags>
 
             <settings.checkboxRandomTags>
                 <TCEforms>
@@ -114,7 +113,6 @@
                     </config>
                 </TCEforms>
             </settings.canvasBg>
-
 
             <settings.inputWidth>
                 <TCEforms>
