@@ -31,8 +31,7 @@ return array(
     'palettes' => array(
         '1' => array('showitem' => ''),
     ),
-    'columns' => array(
-    
+    'columns' => array(    
         'sys_language_uid' => array(
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.language',
@@ -66,7 +65,6 @@ return array(
                 'type' => 'passthrough',
             ),
         ),
-
         't3ver_label' => array(
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.versionLabel',
             'config' => array(
@@ -74,8 +72,7 @@ return array(
                 'size' => 30,
                 'max' => 255,
             )
-        ),
-    
+        ),    
         'hidden' => array(
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
@@ -115,7 +112,6 @@ return array(
                 ),
             ),
         ),
-
         'link' => array(
             'exclude' => 1,
             'label' => 'LLL:EXT:pits_tagcloud/Resources/Private/Language/locallang_db.xlf:tx_pitstagcloud_domain_model_tag.link',
