@@ -25,24 +25,32 @@ namespace Pits\PitsTagcloud\Domain\Repository;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * The repository for ImageTags
  */
 class ImageTagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-
+    /**
+     * @var array Holds the resutl array
+     */
     public $resultArray = array();
     
+    /**
+     * @var array Holds the values for styles
+     */
     public $styleArray = array();
     
+    /**
+     * @var int Holds the limit
+     */
     public $limit = null;
- 
+    
     /**
      * @param $settings
      * @param $storagePid
+     * @return array
      */
-    function findImageTags($settings, $storagePid)
+    public function findImageTags($settings, $storagePid)
     {
         //The tags selected from the list in flexform
         if (isset($settings['selectedImageTags']) && $settings['selectedImageTags'] != '') {
@@ -61,12 +69,11 @@ class ImageTagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         if (!empty($tagIds) && $tagIds[0] != '') {
             $query->matching($query->in('uid', $tagIds));
         }
-
         //To fetch random records
         if (isset($settings['checkboxRandomTags']) && $settings['checkboxRandomTags'] != '' && is_numeric($settings['checkboxRandomTags']) && $settings['checkboxRandomTags'] > 0) {
-            $result = $query->execute(TRUE);
-            $resultCount = count($result);
-            $limit = $limit > $resultCount ? $resultCount : $limit;
+            $result       = $query->execute(TRUE);
+            $resultCount  = count($result);
+            $limit        = $limit > $resultCount ? $resultCount : $limit;
             $resultRandom = array_rand($result, $limit);
             if ($resultCount > 1) {
                 foreach ($resultRandom as $key) {
@@ -82,15 +89,16 @@ class ImageTagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         }
     }
     
-	 /**
-    * @param $settings
-    * @param $contentID
-    */
-    function getStyle($settings, $contentId)
+    /**
+     * @param $settings
+     * @param $contentID
+     * @return array $styleArray
+     */
+    public function getStyle($settings, $contentId)
     {
-        $element_ID = 'myCanvas_'.$contentId;
-        $tag_ID = 'tags_'.$contentId;
-        $container_ID = "myCanvasContainer_".$contentId;
+        $element_ID = 'myCanvas_' . $contentId;
+        $tag_ID = 'tags_' . $contentId;
+        $container_ID = "myCanvasContainer_" . $contentId;
         // All chosen style options and its values added to the script code
         $textColor = $settings['inputTextColor'] != '' ? $settings['inputTextColor'] : '#ff0000';
         $outlineColour = $settings['outlineColour'] != '' ? $settings['outlineColour'] : '#000000';
@@ -100,25 +108,23 @@ class ImageTagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $canvasHeight = $settings['inputHeight'] != '' ? $settings['inputHeight'] : '300';
         $canvasbg = $settings['canvasBg'] != '' ? $settings['canvasBg'] : '#ffffff';
         $Scriptcontent = '      
-          document.addEventListener("DOMContentLoaded", function(event) { 
+        document.addEventListener("DOMContentLoaded", function(event) { 
             try {
                 TagCanvas.Start(\'' . $element_ID . '\',\'' . $tag_ID . '\',{
                 textColour: \'' . $textColor . '\',
-                  outlineColour: \'' . $outlineColour . '\',
+                outlineColour: \'' . $outlineColour . '\',
                 reverse: true,
                 depth: 0.8,
                 maxSpeed: ' . $maxSpeed . ',
                 bgColour: \'' . $bgColour . '\',
                 weight: true,
                 hideTags: true,
-              shape: "sphere"
-            });
-         
+                shape: "sphere"
+                });
             } catch(e) {
                 // something went wrong, hide the canvas container
-            document.getElementById(\'' . $container_ID . '\').style.display = \'none\';
-
-        }
+                document.getElementById(\'' . $container_ID . '\').style.display = \'none\';
+            }
         });';
         $styleArray['element_ID'] = $element_ID;
         $styleArray['tag_ID'] = $tag_ID;
@@ -127,45 +133,44 @@ class ImageTagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $styleArray['canvasHeight'] = $canvasHeight;
         $styleArray['canvasWidth'] = $canvasWidth;
         $styleArray['canvasbg'] = $canvasbg;
+
         return $styleArray;
     }
     
     /**
      * @param $image uid
      * @param $tablename
+     * @return int $uid_local
      */
-    function getImageUidLocal($imgUid,$table)
+    public function getImageUidLocal($imgUid, $table)
     {
-    	$query = $this->createQuery();
-        $query->statement('select uid_local from sys_file_reference where uid_foreign='.$imgUid.' AND tablenames = "'.$table.'" AND fieldname="image" AND deleted = 0 AND hidden = 0');
-        $res = $query->execute(1);
+        $query = $this->createQuery();
+        $query->statement('select uid_local from sys_file_reference where uid_foreign=' . $imgUid . ' AND tablenames = "' . $table . '" AND fieldname="image" AND deleted = 0 AND hidden = 0');
+        $result = $query->execute(1);
         
-        if($res){
-            foreach ($res as $row){
-                if($row['uid_local'])
-                return $row['uid_local'];
-            }
-        }
-  	}
-
-    
-    /**
-     * @param $image uid_local
-     *
-     */
-    function getImagefile($uid)
-    {
-    	$query = $this->createQuery();
-        $query->statement('select *, concat("fileadmin",sys_file.identifier) as file_name from sys_file where uid='.$uid);
-        $res = $query->execute(1);
-        
-        if($res){
-            foreach ($res as $row){
-                if($row['file_name'])
-                    return $row['file_name']; 
+        if ($result) {
+            foreach ($result as $row) {
+                if ($row['uid_local'])
+                    return $row['uid_local'];
             }
         }
     }
-
-
+    
+    /**
+     * @param $uid uid_local
+     * @return string $filename
+     */
+    public function getImageFile($uid)
+    {
+        $query = $this->createQuery();
+        $query->statement('select *, concat("fileadmin",sys_file.identifier) as file_name from sys_file where uid=' . $uid);
+        $result = $query->execute(1);
+        
+        if ($result) {
+            foreach ($result as $row) {
+                if ($row['file_name'])
+                    return $row['file_name'];
+            }
+        }
+    }
 }

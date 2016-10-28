@@ -1,6 +1,8 @@
 <?php
 namespace Pits\PitsTagcloud\Domain\Repository;
+
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 /***************************************************************
  *
  *  Copyright notice
@@ -31,22 +33,37 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  */
 class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-
+    /**
+     * @var array Holds the resutl array
+     */
     public $resultArray = array();
     
+    /**
+     * @var array Holds the style values
+     */
     public $styleArray = array();
     
+    /**
+     * @var int Holds the result limit
+     */
     public $limit = null;
     
+    /**
+     * @var int Holds the number of words
+     */
     public $words = null;
     
+    /**
+     * @var array Holds the value for link
+     */
     public $link = array();
     
     /**
      * @param $settings
      * @param $storagePid
+     * @return array
      */
-    function findTags($settings, $storagePid)
+    public function findTags($settings, $storagePid)
     {
         //The tags selected from the list in flexform
         if (isset($settings['selectedTags']) && $settings['selectedTags'] != '') {
@@ -87,8 +104,9 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     /**
      * @param $settings
      * @param $storagePid
+     * @return array
      */
-    function findTagsFromTable($settings, $storagePid)
+    public function findTagsFromTable($settings, $storagePid)
     {
         $storagePageIds = explode(',', $storagePid);
         $query = $this->createQuery();
@@ -153,8 +171,9 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param $sql
      * @param $words
      * @param $table
+     * @return array $resultFinal
      */
-    function getValues($sql, $words, $table)
+    public function getValues($sql, $words, $table)
     {   
         $query = $this->createQuery();
         //To fetch the values and store to array
@@ -201,8 +220,9 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     /**
     * @param $settings
     * @param $contentID
+    * @return array $styleArray
     */
-    function getStyle($settings, $contentId)
+    public function getStyle($settings, $contentId)
     {
         $element_ID = 'myCanvas_'.$contentId;
         $tag_ID = 'tags_'.$contentId;
@@ -219,15 +239,15 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         document.addEventListener("DOMContentLoaded", function(event) { 
             try {
             TagCanvas.Start(\'' . $element_ID . '\',\'' . $tag_ID . '\',{
-              textColour: \'' . $textColor . '\',
-              outlineColour: \'' . $outlineColour . '\',
-              reverse: true,
-              depth: 0.8,
-              maxSpeed: ' . $maxSpeed . ',
-              bgColour: \'' . $bgColour . '\',
-              weight: true,
-              hideTags: true,
-              shape: "sphere"
+                textColour: \'' . $textColor . '\',
+                outlineColour: \'' . $outlineColour . '\',
+                reverse: true,
+                depth: 0.8,
+                maxSpeed: ' . $maxSpeed . ',
+                bgColour: \'' . $bgColour . '\',
+                weight: true,
+                hideTags: true,
+                shape: "sphere"
             });
            
           } catch(e) {
@@ -242,6 +262,7 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $styleArray['canvasHeight'] = $canvasHeight;
         $styleArray['canvasWidth'] = $canvasWidth;
         $styleArray['canvasbg'] = $canvasbg;
+
         return $styleArray;
     }
 
