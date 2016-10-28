@@ -1,5 +1,4 @@
 plugin.tx_pitstagcloud_tagcloud {
-<<<<<<< HEAD
     view {
         templateRootPaths.0 = {$plugin.tx_pitstagcloud_tagcloud.view.templateRootPath}
         partialRootPaths.0 = {$plugin.tx_pitstagcloud_tagcloud.view.partialRootPath}
@@ -9,57 +8,27 @@ plugin.tx_pitstagcloud_tagcloud {
         storagePid = {$plugin.tx_pitstagcloud_tagcloud.persistence.storagePid}
     }
     settings {
-        tabletags{
-            pages{
+        tabletags {
+            pages {
                 links.parameter = uid
                 excludeRecords = 
                 andWhere = doktype = 1
             }
-            tt_news{
+            tt_news {
                 links.parameter = {$plugin.tt_news.singlePid}
                 links.additionalParams = tx_ttnews[tt_news]
                 links.attributeValue = uid
                 excludeRecords = 
                 andWhere =
             }
-            tx_tagcloud_domain_model_tag{
+            tx_tagcloud_domain_model_tag {
                 links.parameter = linkurl
                 excludeRecords =
                 andWhere =
             }
         }
     }
-=======
-	view {
-		templateRootPaths.0 = {$plugin.tx_pitstagcloud_tagcloud.view.templateRootPath}
-		partialRootPaths.0 = {$plugin.tx_pitstagcloud_tagcloud.view.partialRootPath}
-		layoutRootPaths.0 = {$plugin.tx_pitstagcloud_tagcloud.view.layoutRootPath}
-	}
-	persistence {
-		storagePid = {$plugin.tx_pitstagcloud_tagcloud.persistence.storagePid}
-	}
-	settings {
-		tabletags{
-			pages{
-				links.parameter = uid
-				excludeRecords = 
-				andWhere = doktype = 1
-			}
-			tt_news{
-				links.parameter = {$plugin.tt_news.singlePid}
-				links.additionalParams = tx_ttnews[tt_news]
-				links.attributeValue = uid
-				excludeRecords = 
-				andWhere =
-			}
-			tx_tagcloud_domain_model_tag{
-				links.parameter = linkurl
-				excludeRecords =
-				andWhere =
-			}
-  		}
-	}
->>>>>>> 4b62b04f4b17c223d85cdafc262ed28332cbcd37
+
 }
 
 

@@ -126,6 +126,7 @@ class ImageTagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 document.getElementById(\'' . $container_ID . '\').style.display = \'none\';
             }
         });';
+        
         $styleArray['element_ID'] = $element_ID;
         $styleArray['tag_ID'] = $tag_ID;
         $styleArray['container_ID'] = $container_ID;

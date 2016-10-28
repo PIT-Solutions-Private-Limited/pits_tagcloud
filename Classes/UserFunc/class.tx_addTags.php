@@ -57,8 +57,8 @@ class tx_addTags {
         $table = '';
 
         if ($ver < '7.0.0') {
-         $flexform = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($config['row']['pi_flexform']);
-         $table = $flexform['data']['display']['lDEF']['settings.referenceTable']['vDEF'];
+            $flexform = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($config['row']['pi_flexform']);
+            $table = $flexform['data']['display']['lDEF']['settings.referenceTable']['vDEF'];
 
         } else {
             if (!empty($config['row']['settings.referenceTable'])) {

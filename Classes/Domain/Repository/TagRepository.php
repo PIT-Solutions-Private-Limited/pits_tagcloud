@@ -1,8 +1,6 @@
 <?php
 namespace Pits\PitsTagcloud\Domain\Repository;
 
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
-
 /***************************************************************
  *
  *  Copyright notice
@@ -238,7 +236,7 @@ class TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $Scriptcontent = '      
         document.addEventListener("DOMContentLoaded", function(event) { 
             try {
-            TagCanvas.Start(\'' . $element_ID . '\',\'' . $tag_ID . '\',{
+                TagCanvas.Start(\'' . $element_ID . '\',\'' . $tag_ID . '\',{
                 textColour: \'' . $textColor . '\',
                 outlineColour: \'' . $outlineColour . '\',
                 reverse: true,
