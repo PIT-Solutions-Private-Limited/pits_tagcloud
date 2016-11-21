@@ -24,10 +24,10 @@ Pits Tag Cloud ExtBase
 		en
 
 	:Description:
-		A frontend plugin that generates tag cloud.Tags can be user specified manual tags with links or tags generated out from existing database tables.
+		A frontend plugin that generates tag cloud.Tags can be user specified manual text/image tags with links or tags generated out from existing database tables.
 
 	:Keywords:
-		Tags, tagcloud, pitsolutions, custom tags
+		Tags, tagcloud, pitsolutions, custom tags, image tagcloud
 
 	:Copyright:
 		2016-2017
@@ -59,7 +59,5 @@ Pits Tag Cloud ExtBase
 	Introduction/Index
 	UsersManual/Index
 	KnownProblems/Index
-
-
-
+	ChangeLog/Index
 
