@@ -1,6 +1,6 @@
 <?php
 namespace Pits\PitsTagcloud\Controller;
-
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 /***************************************************************
  *
  *  Copyright notice

@@ -17,10 +17,9 @@ Configuration
 
 	Choose the plugin options.
 
-The plugin has three options for tag mode:
-    1. Manual Text link tags.
-    2. Manual Image link tags
-    3. Tags from tables.
+The plugin has two options for tag mode:
+    1. Manual link tags.
+    2. Tags from tables.
 
 
 General Options
@@ -48,16 +47,14 @@ General Options
 
 
 Manual Link tags
-=================
+================
 You can create tags of your choice with this option.
 
 Step1: Create a folder/Choose a page where you can create tags.
 -----
 
-Step2: Go to the list view and add new items 'Tags' or 'Iamge Tag'
+Step2: Go to the list view and add new items 'Tags'.
 -----
-
-Tag fields:-
 
 * Tag Text - Name of tag (mandatory)
 * Tag Link url - The link to which the tag points to when clicking.
@@ -68,19 +65,6 @@ Tag fields:-
 	:alt: Create tags
 
 	Create tags.
-
-Image Tag fields:-
-
-* Image - Select/ upload the image
-* Width - Width of image
-* Height - height of image
-* Link url - The link to which the image points to on click.
-
-.. figure:: ../../Images/backend3_1.png
-	:width: 700px
-	:alt: Create image tags
-
-	Create image tags
 
 
 Step3: Save your tag and create as many as you want.
